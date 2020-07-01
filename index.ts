@@ -1,29 +1,32 @@
+const path = require("path");
 const fs = require("fs");
-const os = require("os");
 const { skills, user } = require("./src/data");
-const { mkdir, rmdir } = require("./functions");
+const { mkdir, rmdir, rm, touch, read } = require("./functions");
+const dir = "./public/";
+const file = "./public/data.txt";
+const directories = ["css", "js", "fonts"];
 
-// console.log(">>>>>>>>>>>>>>>>> constants");
-// console.log(__dirname);
-// console.log(__filename);
+/**
+ * Create folder
+ */
+// directories.forEach((item) => {
+//   mkdir(dir + path.sep + item);
+// });
 
-// console.log(">>>>>>>>>>>>>>>>> Modules");
-// console.log(skills);
-// console.log(user);
+/**
+ * Remove folder
+ */
+// directories.forEach((item) => {
+//   rmdir(dir + path.sep + item);
+// });
+// mkdir(dir);
+// rmdir(dir);
+// touch(file, skills);
+// rm(file);
 
-// console.log(" >>>>>>>>>>>>>>>>> Built in");
+// const readStream = fs.createReadStream(file);
+// readStream.on("data", (chunck) => {
+//   console.log(chunck.toString());
+// });
 
-// console.log(os);
-// console.log(`os.platform()`);
-// console.log(os.platform());
-// console.log(`os.cpus()`);
-// console.log(os.cpus());
-// console.log(`os.userInfo()`);
-// console.log(os.userInfo());
-// console.log(`os.uptime()`);
-// console.log(os.uptime());
-
-console.log(" >>>>>>>>>>>>>>>>> fs");
-const dir = "./public/data2";
-mkdir(dir);
-rmdir(dir);
+read(file);

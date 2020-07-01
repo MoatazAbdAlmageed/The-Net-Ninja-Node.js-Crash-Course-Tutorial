@@ -1,22 +1,83 @@
 const fs = require("fs");
 
+/**
+ * TODO use return instead
+ */
+
+/**
+ * Make Directory
+ * @param {string} dir
+ */
 const mkdir = (dir) => {
   if (!fs.existsSync(dir)) {
     fs.mkdir(dir, (err) => {
-      console.error(err);
+      if (err) throw err;
+      console.log("Folder has been created successfully");
     });
   } else {
-    console.log("Directory Exists");
-  }
-};
-const rmdir = (dir) => {
-  if (fs.existsSync(dir)) {
-    fs.rmdir(dir, (err) => {
-      console.error(err);
-    });
-  } else {
-    console.log("Directory not found");
+    console.log("Folder already exists");
   }
 };
 
-module.exports = { mkdir, rmdir };
+/**
+ * Remove Directory
+ * @param {string} dir
+ */
+const rmdir = (dir) => {
+  if (fs.existsSync(dir)) {
+    fs.rmdir(dir, (err) => {
+      if (err) throw err;
+      console.log("Folder has been removed successfully");
+    });
+  } else {
+    console.log("Folder not found");
+  }
+};
+
+/**
+ * Make File
+ * @param {string} file
+ * @param {string} data
+ */
+const touch = (file, data) => {
+  if (!fs.existsSync(file)) {
+    fs.writeFile(file, data, (err) => {
+      if (err) throw err;
+      console.log("File has been created successfully");
+    });
+  } else {
+    console.log("File already exits");
+  }
+};
+
+/**
+ * Remove File
+ * @param {string} file
+ */
+const rm = (file) => {
+  if (fs.existsSync(file)) {
+    fs.unlink(file, (err) => {
+      if (err) throw err;
+      console.log("File has been removed successfully");
+    });
+  } else {
+    console.log("File not found");
+  }
+};
+
+/**
+ * Read File
+ * @param {string} file
+ */
+const read = (file) => {
+  if (fs.existsSync(file)) {
+    fs.readFile(file, (err, data) => {
+      if (err) throw err;
+      console.log(data.toString());
+    });
+  } else {
+    console.log("File not found");
+  }
+};
+
+module.exports = { mkdir, rmdir, rm, touch, read };
