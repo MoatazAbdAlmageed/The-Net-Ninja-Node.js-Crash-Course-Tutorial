@@ -79,5 +79,18 @@ const read = (file) => {
     console.log("File not found");
   }
 };
+/**
+ * Write to  File
+ * @param {string} file
+ */
+const write = (file) => {
+  if (fs.existsSync(file)) {
+    fs.writeFile(file, (err, data) => {
+      if (err) throw err;
+    });
+  } else {
+    console.log("File not found");
+  }
+};
 
-module.exports = { mkdir, rmdir, rm, touch, read };
+module.exports = { mkdir, rmdir, rm, touch, read, write };
