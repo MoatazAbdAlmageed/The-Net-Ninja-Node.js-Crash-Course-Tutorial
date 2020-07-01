@@ -1,7 +1,7 @@
 const path = require("path");
 const fs = require("fs");
 const { skills, user } = require("./src/data");
-const { mkdir, rmdir, rm, touch, read, write } = require("./functions");
+const { mkdir, rmdir, rm, touch, read, write } = require("./utils/functions");
 const dir = "./public/";
 const file = "./public/data.txt";
 const readFile = "./public/read.txt";
