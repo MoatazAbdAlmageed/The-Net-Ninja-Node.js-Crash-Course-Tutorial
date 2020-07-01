@@ -24,9 +24,10 @@ const directories = ["css", "js", "fonts"];
 // touch(file, skills);
 // rm(file);
 
-// const readStream = fs.createReadStream(file);
-// readStream.on("data", (chunck) => {
-//   console.log(chunck.toString());
-// });
+const readStream = fs.createReadStream(file, { encoding: "utf8" });
+readStream.on("data", (chunck) => {
+  console.log(chunck);
+  // console.log(chunck.toString());
+});
 
-read(file);
+// read(file);
