@@ -10,7 +10,7 @@ const server = http.createServer((req, res) => {
 const PORT = 3000;
 server.listen(PORT, "localhost", () => {
   /**
-   * http://localhost:3000/?name=moataz&age=30
+   * http://localhost:3000/?name=moataz&age=30&country=Egypt
    */
   console.log(`the server object listens on port ${PORT}`);
 });
