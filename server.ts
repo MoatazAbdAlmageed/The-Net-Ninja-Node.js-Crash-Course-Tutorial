@@ -14,7 +14,3 @@ server.listen(PORT, "localhost", () => {
    */
   console.log(`the server object listens on port ${PORT}`);
 });
-
-module.exports = {
-  server,
-};
