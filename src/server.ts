@@ -1,17 +1,13 @@
-import { log } from "console";
-
-const fs = require("fs");
 const http = require("http");
 const url = require("url");
-const { mkdir, rmdir, rm, touch, read, write } = require("../utils/functions");
+const { read } = require("../utils/functions");
 const PORT = 3000;
 const server = http.createServer((req, res) => {
-  var q = url.parse(req.url, true).query;
   /**
    * JSON
    */
   // res.writeHead(200, { "Content-Type": "application/json" });
-
+  // var q = url.parse(req.url, true).query;
   // console.log("🚀🚀🚀🚀🚀🚀 q");
   // console.log(JSON.stringify(q));
   // console.log();
@@ -52,10 +48,9 @@ const server = http.createServer((req, res) => {
     res.end(); //end the response
   });
 });
-
 server.listen(PORT, "localhost", () => {
   /**
    * http://localhost:3000/?name=moataz&age=30&country=Egypt
    */
-  console.log(`the server object listens on port ${PORT}`);
+  console.log(`🚀 the server object listens on port ${PORT}`);
 });
