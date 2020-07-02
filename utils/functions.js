@@ -43,6 +43,9 @@ const touch = (file, data) => {
   if (!fs.existsSync(file)) {
     fs.writeFile(file, data, (err) => {
       if (err) throw err;
+      if (callback) {
+        callback(data);
+      }
       console.log("File has been created successfully");
     });
   } else {
@@ -69,11 +72,13 @@ const rm = (file) => {
  * Read File
  * @param {string} file
  */
-const read = (file) => {
+const read = (file, callback) => {
   if (fs.existsSync(file)) {
     fs.readFile(file, (err, data) => {
       if (err) throw err;
-      console.log(data.toString());
+      if (callback) {
+        callback(data);
+      }
     });
   } else {
     console.log("File not found");
@@ -87,6 +92,9 @@ const write = (file) => {
   if (fs.existsSync(file)) {
     fs.writeFile(file, (err, data) => {
       if (err) throw err;
+      if (callback) {
+        callback(data);
+      }
     });
   } else {
     console.log("File not found");

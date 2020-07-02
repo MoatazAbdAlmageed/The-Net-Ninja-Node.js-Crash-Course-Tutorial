@@ -1,11 +1,34 @@
+const fs = require("fs");
 const http = require("http");
 const url = require("url");
+const { mkdir, rmdir, rm, touch, read, write } = require("../utils/functions");
 const server = http.createServer((req, res) => {
-  res.writeHead(200, { "Content-Type": "application/json" });
-  var q = url.parse(req.url, true).query;
-  console.log(q);
-  res.write(JSON.stringify(q)); //write a response to the client
-  res.end(); //end the response
+  /**
+   * JSON
+   */
+  // res.writeHead(200, { "Content-Type": "application/json" });
+  // var q = url.parse(req.url, true).query;
+  // console.log("🚀🚀🚀🚀🚀 req.url");
+  // console.log(req.url);
+  // console.log("🚀🚀🚀🚀 req.method ");
+  // console.log(req.method);
+
+  // console.log("🚀🚀🚀🚀🚀🚀 q");
+  // console.log(JSON.stringify(q));
+  // console.log();
+  // console.log();
+  // console.log();
+  // res.write(JSON.stringify(q)); //write a response to the client
+
+  /**
+   * HTML
+   */
+  res.writeHead(200, { "Content-Type": "text/html" });
+  const file = "./views/index.html";
+  read(file, (data) => {
+    res.write(data);
+    res.end(); //end the response
+  });
 });
 const PORT = 3000;
 server.listen(PORT, "localhost", () => {
