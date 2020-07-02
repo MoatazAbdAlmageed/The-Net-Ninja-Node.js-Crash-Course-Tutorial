@@ -8,11 +8,14 @@ const fs = require("fs");
  * Make Directory
  * @param {string} dir
  */
-const mkdir = (dir) => {
+const mkdir = (dir, callback) => {
   if (!fs.existsSync(dir)) {
     fs.mkdir(dir, (err) => {
       if (err) throw err;
       console.log("Folder has been created successfully");
+      if (callback) {
+        callback(data);
+      }
     });
   } else {
     console.log("Folder already exists");
@@ -23,11 +26,14 @@ const mkdir = (dir) => {
  * Remove Directory
  * @param {string} dir
  */
-const rmdir = (dir) => {
+const rmdir = (dir, callback) => {
   if (fs.existsSync(dir)) {
     fs.rmdir(dir, (err) => {
       if (err) throw err;
       console.log("Folder has been removed successfully");
+      if (callback) {
+        callback(data);
+      }
     });
   } else {
     console.log("Folder not found");
@@ -39,14 +45,14 @@ const rmdir = (dir) => {
  * @param {string} file
  * @param {string} data
  */
-const touch = (file, data) => {
+const touch = (file, data, callback) => {
   if (!fs.existsSync(file)) {
     fs.writeFile(file, data, (err) => {
       if (err) throw err;
+      console.log("File has been created successfully");
       if (callback) {
         callback(data);
       }
-      console.log("File has been created successfully");
     });
   } else {
     console.log("File already exits");
@@ -57,11 +63,14 @@ const touch = (file, data) => {
  * Remove File
  * @param {string} file
  */
-const rm = (file) => {
+const rm = (file, callback) => {
   if (fs.existsSync(file)) {
     fs.unlink(file, (err) => {
       if (err) throw err;
       console.log("File has been removed successfully");
+      if (callback) {
+        callback(data);
+      }
     });
   } else {
     console.log("File not found");
@@ -88,7 +97,7 @@ const read = (file, callback) => {
  * Write to  File
  * @param {string} file
  */
-const write = (file) => {
+const write = (file, callback) => {
   if (fs.existsSync(file)) {
     fs.writeFile(file, (err, data) => {
       if (err) throw err;
