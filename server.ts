@@ -27,7 +27,7 @@ app.get("/about-me", (req, res) => {
   res.redirect("/about");
 });
 
-app.get("/blogs/create", (req, res) => {
+app.get("/blog/create", (req, res) => {
   // pass data to view
   res.render("create", { title: "Create Post" });
 });

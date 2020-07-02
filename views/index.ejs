@@ -1,37 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css"
-    />
-    <style>
-      body {
-        background: #eee;
-        color: #333;
-      }
-    </style>
-    <title><%= title%></title>
-  </head>
-  <body>
-    <div class="container">
-      <h1><%= title%></h1>
-      <div class="row">
-        <% if(blogs.length){ %> <% blogs.forEach((post) =>{ %>
-        <div class="col-md-4">
-          <div class="card mb-4 shadow-sm">
-            <div class="card-body">
-              <h4><%=post.title%></h4>
-              <p class="card-text">
-                <%=post.content%>
-              </p>
-            </div>
-          </div>
-        </div>
-        <% } )%> <%} %>
+<%- include('./partials/header.ejs') %>
+<div class="row">
+  <% if(blogs.length){ %> <% blogs.forEach((post) =>{ %>
+  <div class="col-md-4">
+    <div class="card mb-4 shadow-sm">
+      <div class="card-body">
+        <h4><%=post.title%></h4>
+        <p class="card-text">
+          <%=post.content%>
+        </p>
       </div>
     </div>
-  </body>
-</html>
+  </div>
+  <% } )%> <%} else { %>
+  <p>No Posts to show</p>
+  <% }%>
+</div>
+
+<%- include('./partials/footer.ejs') %>
