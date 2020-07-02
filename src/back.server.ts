@@ -2,6 +2,13 @@ const http = require("http");
 const url = require("url");
 const { read } = require("../utils/functions");
 const PORT = 3000;
+const _ = require("lodash");
+
+const greeting = _.once(() => {
+  console.log("moataz");
+  console.log("----------------------------------------------------");
+  console.log();
+});
 const server = http.createServer((req, res) => {
   /**
    * JSON
