@@ -72,6 +72,9 @@ app.get("/create", (req, res) => {
 });
 app.post("/create", (req, res) => {
   const { title } = req.body;
+  if (!title) {
+    res.redirect("/");
+  }
   const task = new Task({ title: title.trim(), status: false });
   task.save().then(() => {
     res.redirect("/");

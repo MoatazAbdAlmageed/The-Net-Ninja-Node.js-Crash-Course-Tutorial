@@ -8,6 +8,7 @@
         name="title"
         class="form-control"
         id="taskTitle"
+        required
         placeholder="Insert task"
       />
     </div>
@@ -57,7 +58,7 @@
     name="_id"
     value="<%= task._id%>"
   />
-    <button type="submit" class="btn btn-sm btn-danger btn-secondary">Delete</button>
+    <button onclick="return confirm('Are you sure you want to delete this item?');" type="submit" class="btn btn-sm btn-danger btn-secondary">Delete</button>
   </form>
 </div>
   </div>
