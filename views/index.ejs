@@ -13,8 +13,9 @@
         <ul>
           <% task.tasks.forEach((subTask) =>{ %>
           <li><%=subTask%></li>
+          <% } )%>
         </ul>
-        <% } )%> <%} else { %>
+        <%} else { %>
         <p>No Sub Tasks to show</p>
         <% }%>
       </div>
