@@ -5,7 +5,8 @@
     "tasks": [
       "Create github organization",
       "Make it just API",
-      "Create React app for front-end"
+      "Create React app for front-end",
+      "use firebase or alternative"
     ]
   },
   { "title": "Task 2", "content": "Task details here 2", "tasks": [] },
