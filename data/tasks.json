@@ -1,0 +1,14 @@
+[
+  {
+    "title": "Resala Charity Organization",
+    "content": "Task details here 1",
+    "tasks": [
+      "Create github organization",
+      "Make it just API",
+      "Create React app for front-end"
+    ]
+  },
+  { "title": "Task 2", "content": "Task details here 2", "tasks": [] },
+  { "title": "Task 3", "content": "Task details here 3", "tasks": [] },
+  { "title": "Task 4", "content": "Task details here 4" }
+]

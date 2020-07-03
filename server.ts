@@ -1,22 +1,24 @@
 const express = require("express");
 const ejs = require("ejs");
 const app = express();
-const tasks = [
-  {
-    title: "Resala Charity Organization",
-    content: "Task details here 1",
-    tasks: ["Create github organization"],
-  },
-  { title: "Task 2", content: "Task details here 2", tasks: [] },
-  { title: "Task 3", content: "Task details here 3", tasks: [] },
-  { title: "Task 4", content: "Task details here 4" },
-];
+const fs = require("fs");
+const tasks = fs.readFileSync("./data/tasks.json", "utf8"); //todo get it from db
+const morgan = require("morgan");
+/**
+ * Error: No default engine was specified and no extension was provided.
+ */
 app.set("view engine", "ejs");
 
 app.listen(3000);
+app.use(morgan("dev"));
+app.use(express.static("public"));
 
+// app.use((req, res, next) => {
+//   console.table({ method: req.method, path: req.path });
+//   next();
+// });
 app.get("/", (req, res) => {
-  res.render("index", { title: "Tasks", tasks });
+  res.render("index", { title: "Tasks", tasks: JSON.parse(tasks) });
 });
 app.get("/about", (req, res) => {
   res.render("about", { title: "About" });
@@ -33,9 +35,9 @@ app.get("/create", (req, res) => {
 });
 app.post("/create", (req, res) => {
   console.log("🚀🚀🚀🚀🚀🚀 req");
-  console.log(req);
-  console.log("----------------------------------------------------");
+  console.log("---------------------- saving --------------------------");
   console.log();
+  res.redirect("/");
 });
 
 app.use((req, res) => {
