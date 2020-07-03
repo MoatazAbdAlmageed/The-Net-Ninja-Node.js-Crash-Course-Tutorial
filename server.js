@@ -4,13 +4,19 @@ const app = express();
 const morgan = require("morgan");
 const mongoose = require("mongoose");
 const Task = require("./models/task");
-var bodyParser = require("body-parser");
+const bodyParser = require("body-parser");
+const moment = require("moment");
+const methodOverride = require("method-override");
 
 // for parsing application/json
 // app.use(bodyParser.json());
 
 // for parsing application/xwww-
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// override with POST having ?_method=DELETE
+app.use(methodOverride("_method"));
+
 //form-urlencoded
 mongoose.connect("mongodb://localhost/board", {
   useNewUrlParser: true,
@@ -31,15 +37,20 @@ app.set("view engine", "ejs");
 
 app.use(morgan("dev"));
 app.use(express.static("public"));
-
+app.use((req, res, next) => {
+  res.locals.moment = moment;
+  next();
+});
 // app.use((req, res, next) => {
 //   console.table({ method: req.method, path: req.path });
 //   next();
 // });
 app.get("/", (req, res) => {
-  tasks = Task.find().then((tasks) => {
-    res.render("index", { title: "Tasks", tasks });
-  });
+  tasks = Task.find()
+    .sort({ createdAt: -1 })
+    .then((tasks) => {
+      res.render("index", { title: "Tasks", tasks });
+    });
 });
 app.get("/show/:id", (req, res) => {
   tasks = Task.findById(`${req.params.id}`).then((task) => {
@@ -60,9 +71,24 @@ app.get("/create", (req, res) => {
   res.render("create", { title: "Create" });
 });
 app.post("/create", (req, res) => {
-  const { title, content } = req.body;
-  const task = new Task({ title, content });
+  const { title } = req.body;
+  const task = new Task({ title: title.trim(), status: false });
   task.save().then(() => {
+    res.redirect("/");
+  });
+});
+app.put("/update", (req, res) => {
+  const { _id, title } = req.body;
+  console.log(title);
+  console.log(".......................");
+  // todo set status
+  Task.findByIdAndUpdate({ _id }, { title: title.trim() }).then(() => {
+    res.redirect("/");
+  });
+});
+app.delete("/delete", (req, res) => {
+  const { _id } = req.body;
+  Task.findByIdAndDelete({ _id }).then(() => {
     res.redirect("/");
   });
 });

@@ -1,3 +1,11 @@
 body {
   background: #eee;
 }
+
+.spacer {
+  height: 40px;
+}
+
+.gray {
+  color: #b3b3b3;
+}

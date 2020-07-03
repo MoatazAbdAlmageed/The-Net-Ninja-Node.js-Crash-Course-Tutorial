@@ -1,24 +1,19 @@
 <%- include('./partials/header.ejs') %>
-<div class="row">
-  <div class="col-md-4">
-    <div class="card mb-4 shadow-sm">
-      <div class="card-body">
-        <h4><%=task.title%></h4>
-        <p class="card-text" data-id="<%=task._id%>">
-          <%=task.content%>
-        </p>
-        <% if(task.tasks && task.tasks.length){ %>
-        <ul>
-          <% task.tasks.forEach((subTask) =>{ %>
-          <li><%=subTask%></li>
-          <% } )%>
-        </ul>
-        <%} else { %>
-        <p>No Sub Tasks to show</p>
-        <% }%>
-      </div>
-    </div>
+
+<hr />
+<form method="put" action="/update">
+  <div class="form-group">
+    <label for="taskTitle">Title</label>
+    <input
+      type="text"
+      name="title"
+      value="<%= task.title%>"
+      class="form-control"
+      id="taskTitle"
+      placeholder="Enter title"
+    />
   </div>
-</div>
+  <button type="submit" class="btn btn-primary">Update</button>
+</form>
 
 <%- include('./partials/footer.ejs') %>

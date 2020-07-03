@@ -1,29 +1,62 @@
 <%- include('./partials/header.ejs') %>
-<a class="btn btn-outline-primary" href="/create">New</a>
-<div class="row">
-  <% if(tasks.length){ %> <% tasks.forEach((task) =>{ %>
-  <div class="col-md-4">
-    <div class="card mb-4 shadow-sm">
-      <div class="card-body">
-        <a href="/show/<%=task._id%>"><h4><%=task.title%></h4></a>
-        <p class="card-text" data-id="<%=task._id%>">
-          <%=task.content%>
-        </p>
-        <% if(task.tasks && task.tasks.length){ %>
-        <ul>
-          <% task.tasks.forEach((subTask) =>{ %>
-          <li><%=subTask%></li>
-          <% } )%>
-        </ul>
-        <%} else { %>
-        <p>No Sub Tasks to show</p>
-        <% }%>
-      </div>
+<div class="spacer"></div>
+  <form method="POST" action="/create">
+    <div class="form-row">
+      <div class="col-md-10">
+      <input
+        type="text"
+        name="title"
+        class="form-control"
+        id="taskTitle"
+        placeholder="Insert task"
+      />
     </div>
+    <div class="col-md-2 text-center">
+    <button type="submit" class="btn btn-lg btn-primary">Create</button>
   </div>
-  <% } )%> <%} else { %>
-  <p>No Tasks to show</p>
-  <% }%>
+  </div>
+  </form>
+<div class="spacer"></div>
+<hr>
+<% if(tasks.length){ %> <% tasks.forEach((task) =>{ %>
+  <div class="row"  data-id="<%=task._id%>">
+  <div class="col-10">
+    <form  method="POST" action="/update?_method=PUT"">
+      <div class="form-row">
+        <div class="col-md-10">
+          <input
+          type="hidden"
+          name="_id"
+          value="<%= task._id%>"
+        />
+        <input
+          type="text"
+          name="title"
+          class="form-control"
+          id="taskTitle"
+          value="<%= task.title%>"
+          placeholder="Insert task"
+        />
+        <p class="gray"><%= moment(task.createdAt, "YYYYMMDD").fromNow()          %></p>
+      </div>
+      <div class="col-md-2 text-right">
+      <button type="submit" class="btn btn-sm btn-success btn-secondary">Update</button>
+    </div>
+    </div>
+    </form>
+  </div>
+<div class="col-2">
+  <form  method="POST" action="/delete?_method=DELETE"">
+    <input
+    type="hidden"
+    name="_id"
+    value="<%= task._id%>"
+  />
+    <button type="submit" class="btn btn-sm btn-danger btn-secondary">Delete</button>
+  </form>
 </div>
+  </div>
+  <div class="spacer"></div>
+  <% } )%> <%} %>
 
 <%- include('./partials/footer.ejs') %>

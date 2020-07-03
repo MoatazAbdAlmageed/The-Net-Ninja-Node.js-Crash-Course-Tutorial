@@ -6,12 +6,8 @@ const taskSchema = new Schema(
       type: String,
       required: true,
     },
-    content: {
-      type: String,
-      required: true,
-    },
-    tasks: {
-      type: [String],
+    status: {
+      type: Boolean,
       required: false,
     },
   },
