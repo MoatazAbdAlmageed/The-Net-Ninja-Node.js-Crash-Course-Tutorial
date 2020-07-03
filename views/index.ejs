@@ -37,9 +37,14 @@
           value="<%= task.title%>"
           placeholder="Insert task"
         />
-        <p class="gray"><%= moment(task.createdAt, "YYYYMMDD").fromNow()          %></p>
+
+        <p class="gray"><%= moment(task.createdAt, "YYYYMMDD").fromNow()%></p>
       </div>
-      <div class="col-md-2 text-right">
+      <div class="col-md-1">
+
+        <input type="checkbox" name="status" <% if (task.status) {  %> checked   <% } %>  >
+      </div>
+      <div class="col-md-1 text-right">
       <button type="submit" class="btn btn-sm btn-success btn-secondary">Update</button>
     </div>
     </div>
@@ -56,7 +61,7 @@
   </form>
 </div>
   </div>
-  <div class="spacer"></div>
+  <div class="spacer sm"></div>
   <% } )%> <%} %>
 
 <%- include('./partials/footer.ejs') %>

@@ -78,11 +78,14 @@ app.post("/create", (req, res) => {
   });
 });
 app.put("/update", (req, res) => {
-  const { _id, title } = req.body;
-  console.log(title);
+  const { _id, title, status } = req.body;
+  console.log(status);
   console.log(".......................");
   // todo set status
-  Task.findByIdAndUpdate({ _id }, { title: title.trim() }).then(() => {
+  Task.findByIdAndUpdate(
+    { _id },
+    { title: title.trim(), status: status == "on" ? true : false }
+  ).then(() => {
     res.redirect("/");
   });
 });

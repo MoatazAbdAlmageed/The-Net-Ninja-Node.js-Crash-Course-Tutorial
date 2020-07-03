@@ -5,6 +5,9 @@ body {
 .spacer {
   height: 40px;
 }
+.spacer.sm {
+  height: 20px;
+}
 
 .gray {
   color: #b3b3b3;
