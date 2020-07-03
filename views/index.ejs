@@ -1,18 +1,27 @@
 <%- include('./partials/header.ejs') %>
+<a class="btn btn-outline-primary" href="/create">New</a>
 <div class="row">
-  <% if(blogs.length){ %> <% blogs.forEach((post) =>{ %>
+  <% if(tasks.length){ %> <% tasks.forEach((task) =>{ %>
   <div class="col-md-4">
     <div class="card mb-4 shadow-sm">
       <div class="card-body">
-        <h4><%=post.title%></h4>
+        <h4><%=task.title%></h4>
         <p class="card-text">
-          <%=post.content%>
+          <%=task.content%>
         </p>
+        <% if(task.tasks && task.tasks.length){ %>
+        <ul>
+          <% task.tasks.forEach((subTask) =>{ %>
+          <li><%=subTask%></li>
+        </ul>
+        <% } )%> <%} else { %>
+        <p>No Sub Tasks to show</p>
+        <% }%>
       </div>
     </div>
   </div>
   <% } )%> <%} else { %>
-  <p>No Posts to show</p>
+  <p>No Tasks to show</p>
   <% }%>
 </div>
 
