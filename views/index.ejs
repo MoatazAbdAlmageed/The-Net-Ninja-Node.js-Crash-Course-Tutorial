@@ -22,6 +22,7 @@
 <% if(tasks.length){ %> <% tasks.forEach((task) =>{ %>
   <div class="row"  data-id="<%=task._id%>">
   <div class="col-10">
+    <p class="gray"><%= moment(task.createdAt, "YYYYMMDD").fromNow()%></p>
     <form  method="POST" action="/update?_method=PUT"">
       <div class="form-row">
         <div class="col-md-10">
@@ -39,7 +40,6 @@
           placeholder="Insert task"
         />
 
-        <p class="gray"><%= moment(task.createdAt, "YYYYMMDD").fromNow()%></p>
       </div>
       <div class="col-md-1">
 

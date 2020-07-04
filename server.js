@@ -7,7 +7,7 @@ const Task = require("./models/task");
 const bodyParser = require("body-parser");
 const moment = require("moment");
 const methodOverride = require("method-override");
-
+const dotenv = require("dotenv").config();
 // for parsing application/json
 // app.use(bodyParser.json());
 
@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 
 //form-urlencoded
-mongoose.connect("mongodb://localhost/board", {
+mongoose.connect(process.env.CONNECTION_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -27,7 +27,7 @@ var db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", (data) => {
   console.log("connected");
-  app.listen(3000);
+  app.listen(process.env.PORT);
 });
 
 /**
