@@ -1,3 +1,4 @@
+"use strict";
 const deleteBtn = document.querySelector("button.btn-delete");
 
 deleteBtn.addEventListener("click", (e) => {
@@ -18,17 +19,19 @@ deleteBtn.addEventListener("click", (e) => {
 // make task editable
 const tasks = document.querySelectorAll(".task");
 tasks.forEach((task) => {
+  const viewElement = task.querySelector(".list-title-view");
+  const editElement = task.querySelector(".list-edit-view");
   task.addEventListener("dblclick", (e) => {
-    task.querySelector(".list-title-edit").classList.remove("hidden");
-    task.querySelector(".list-title-edit").focus();
-    task.querySelector(".list-title-view").classList.add("hidden");
+    editElement.classList.remove("hidden");
+    editElement.focus();
+    viewElement.classList.add("hidden");
   });
 
   const taskInputs = task.querySelectorAll(".list-title-edit");
   taskInputs.forEach((taskInput) => {
     taskInput.addEventListener("blur", (e) => {
       e.target.classList.add("hidden");
-      task.querySelector(".list-title-view").classList.remove("hidden");
+      viewElement.classList.remove("hidden");
     });
   });
 });
