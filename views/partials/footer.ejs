@@ -1,3 +1,25 @@
 </div>
+
+<script>
+    const btn = document.querySelector("button.btn-delete");
+    
+    btn.addEventListener('click',(e) => {
+      const endpoint =`/tasks/delete/${btn.dataset.id}`
+      fetch(endpoint,{method:'DELETE'})
+      .then((res) => res.json())
+      .then((data) => {
+        const row = document.querySelector(`[task-id='${btn.dataset.id}']`)
+        if(data.status = 200){
+          row.remove();
+        }
+      }
+      ).catch((err) => {
+        console.log(err);
+      }
+      )
+    }
+    )
+    
+      </script>
 </body>
 </html>

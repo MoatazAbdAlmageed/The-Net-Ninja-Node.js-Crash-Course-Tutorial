@@ -1,6 +1,6 @@
-<%- include('./partials/header.ejs') %>
+<%- include('../partials/header.ejs') %>
 <div class="spacer"></div>
-  <form method="POST" action="/create">
+  <form method="POST" action="/tasks/create">
     <div class="form-row">
       <div class="col-md-10">
       <input
@@ -9,7 +9,7 @@
         class="form-control"
         id="taskTitle"
         required
-        placeholder="Insert task"
+        placeholder="New task title"
       />
     </div>
     <div class="col-md-2 text-center">
@@ -19,13 +19,17 @@
   </form>
 <div class="spacer"></div>
 <hr>
-<% if(tasks.length){ %> <% tasks.forEach((task) =>{ %>    <p class="gray"><%= moment(task.createdAt, "YYYYMMDD").fromNow()%></p>
+<% if(tasks.length){ %> <% tasks.forEach((task) =>{ %>    
+  <div task-id="<%=task._id%>"> 
 
-  <div class="row"  data-id="<%=task._id%>">
+  
+  <p class="gray"><%= moment(task.createdAt, "YYYYMMDD").fromNow()%></p>
+
+  <div class="row"  >
     
   <div class="col-10">
     
-    <form  method="POST" action="/update?_method=PUT"">
+    <form  method="POST" action="/tasks/update?_method=PUT"">
       <div class="form-row">
         <div class="col-md-10">
           <input
@@ -53,17 +57,11 @@
     </form>
   </div>
 <div class="col-2">
-  <form  method="POST" action="/delete?_method=DELETE"">
-    <input
-    type="hidden"
-    name="_id"
-    value="<%= task._id%>"
-  />
-    <button onclick="return confirm('Are you sure you want to delete this item?');" type="submit" class="btn btn-sm btn-danger btn-secondary">Delete</button>
-  </form>
+  <button  data-id="<%= task._id%>" onclick="return confirm('Are you sure you want to delete this item?');" class="btn btn-sm btn-danger btn-secondary btn-delete">Delete</button>
 </div>
   </div>
   <div class="spacer sm"></div>
+</div>
   <% } )%> <%} %>
 
-<%- include('./partials/footer.ejs') %>
+<%- include('../partials/footer.ejs') %>
