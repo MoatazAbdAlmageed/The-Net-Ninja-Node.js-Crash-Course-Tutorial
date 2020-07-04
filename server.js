@@ -6,27 +6,17 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const moment = require("moment");
 const methodOverride = require("method-override");
-const dotenv = require("dotenv").config();
+require("dotenv").config();
 const pagesRoutes = require("./routes/pages");
 const taskRoutes = require("./routes/task");
+const { connection } = require("./db");
 // for parsing application/xwww-
 app.use(bodyParser.urlencoded({ extended: true }));
-
-// override with POST having ?_method=DELETE
-app.use(methodOverride("_method"));
-
-//form-urlencoded
-mongoose.connect(process.env.CONNECTION_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-
-var db = mongoose.connection;
-db.on("error", console.error.bind(console, "connection error:"));
-db.once("open", (data) => {
-  console.log("connected");
+connection(() => {
   app.listen(process.env.PORT);
 });
+// override with POST having ?_method=DELETE
+app.use(methodOverride("_method"));
 
 /**
  * Error: No default engine was specified and no extension was provided.
