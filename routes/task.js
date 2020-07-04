@@ -6,24 +6,9 @@ const {
   update,
   deleteItem,
 } = require("../controllers/taskController");
-
-router.get("/", (req, res) => {
-  read(req, res);
-});
-
-router.get("/completed", (req, res) => {
-  read(req, res);
-});
-
-router.post("/create", (req, res) => {
-  create(req, res);
-});
-
-router.put("/update", (req, res) => {
-  update(req, res);
-});
-
-router.delete("/delete/:id", (req, res) => {
-  deleteItem(req, res);
-});
+router.get("/", read);
+router.get("/completed", read);
+router.post("/create", create);
+router.put("/update", update);
+router.delete("/delete/:id", deleteItem);
 module.exports = router;
