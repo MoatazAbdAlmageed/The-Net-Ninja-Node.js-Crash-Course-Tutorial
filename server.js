@@ -48,8 +48,17 @@ app.use((req, res, next) => {
 app.get("/", (req, res) => {
   tasks = Task.find()
     .sort({ createdAt: -1 })
+    .where({ status: 0 })
     .then((tasks) => {
-      res.render("index", { title: "Tasks", tasks });
+      res.render("index", { title: `TODO [${tasks.length}]`, tasks });
+    });
+});
+app.get("/completed", (req, res) => {
+  tasks = Task.find()
+    .sort({ createdAt: -1 })
+    .where({ status: 1 })
+    .then((tasks) => {
+      res.render("completed", { title: `Done [${tasks.length}]`, tasks });
     });
 });
 app.get("/show/:id", (req, res) => {
