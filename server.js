@@ -3,12 +3,12 @@ const app = express();
 // const tasks = fs.readFileSync("./data/tasks.json", "utf8"); //todo get it from db
 const morgan = require("morgan");
 const mongoose = require("mongoose");
-const Task = require("./models/task");
 const bodyParser = require("body-parser");
 const moment = require("moment");
 const methodOverride = require("method-override");
 const dotenv = require("dotenv").config();
-
+const pagesRoutes = require("./routes/pages");
+const taskRoutes = require("./routes/task");
 // for parsing application/xwww-
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -39,73 +39,10 @@ app.use((req, res, next) => {
   res.locals.moment = moment;
   next();
 });
-app.get("/", (req, res) => {
-  tasks = Task.find()
-    .sort({ createdAt: -1 })
-    .where({ status: 0 })
-    .then((tasks) => {
-      res.render("index", { title: `TODO [${tasks.length}]`, tasks });
-    });
-});
-app.get("/completed", (req, res) => {
-  tasks = Task.find()
-    .sort({ createdAt: -1 })
-    .where({ status: 1 })
-    .then((tasks) => {
-      res.render("completed", { title: `Done [${tasks.length}]`, tasks });
-    });
-});
-app.get("/show/:id", (req, res) => {
-  tasks = Task.findById(`${req.params.id}`).then((task) => {
-    res.render("show", { title: task.title, task });
-  });
-});
-app.get("/about", (req, res) => {
-  res.render("about", { title: "About" });
-});
-app.get("/services", (req, res) => {
-  res.render("services", { title: "Services" });
-});
-app.get("/about-me", (req, res) => {
-  res.redirect("/about");
-});
 
-app.get("/create", (req, res) => {
-  res.render("create", { title: "Create" });
-});
-app.post("/create", (req, res) => {
-  const { title } = req.body;
-  if (!title) {
-    res.redirect("/");
-  }
-  const task = new Task({ title: title.trim(), status: false });
-  task.save().then(() => {
-    res.redirect("/");
-  });
-});
-app.put("/update", (req, res) => {
-  const { _id, title, status } = req.body;
-  console.log(status);
-  console.log(".......................");
-  // todo set status
-  Task.findByIdAndUpdate(
-    { _id },
-    { title: title.trim(), status: status == "on" ? true : false }
-  ).then(() => {
-    res.redirect("/");
-  });
-});
-app.delete("/delete", (req, res) => {
-  const { _id } = req.body;
-  Task.findByIdAndDelete({ _id }).then(() => {
-    res.redirect("/");
-  });
-});
-app.delete("/delete/:id", (req, res) => {
-  Task.findByIdAndDelete(req.params.id).then(() => {
-    res.json({ redirect: "/" });
-  });
-});
+app.use(pagesRoutes);
+// Tasks
+app.use(taskRoutes);
 
 app.use((req, res) => {
   res.render("404", { title: "404" });
