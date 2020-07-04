@@ -1,5 +1,6 @@
 body {
-  background: #eee;
+  background: #fff;
+  color: #666;
 }
 
 .spacer {
@@ -11,4 +12,8 @@ body {
 
 .gray {
   color: #b3b3b3;
+}
+
+.hidden {
+  display: none !important;
 }

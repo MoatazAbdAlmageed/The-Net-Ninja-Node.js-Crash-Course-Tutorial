@@ -13,14 +13,14 @@
       />
     </div>
     <div class="col-md-2 text-center">
-    <button type="submit" class="btn btn-lg btn-primary">Create</button>
+    <button type="submit" class="btn btn-primary">Create</button>
   </div>
   </div>
   </form>
 <div class="spacer"></div>
 <hr>
 <% if(tasks.length){ %> <% tasks.forEach((task) =>{ %>    
-  <div task-id="<%=task._id%>"> 
+  <div class="task" task-id="<%=task._id%>"> 
 
   
   <p class="gray"><%= moment(task.createdAt, "YYYYMMDD").fromNow()%></p>
@@ -40,11 +40,13 @@
         <input
           type="text"
           name="title"
-          class="form-control"
+          class="form-control list-title-edit hidden"
           id="taskTitle"
           value="<%= task.title%>"
           placeholder="Insert task"
         />
+
+        <p class="list-title-view"><%= task.title%></p>
 
       </div>
       <div class="col-md-1">
