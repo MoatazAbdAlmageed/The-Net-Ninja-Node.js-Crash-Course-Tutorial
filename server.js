@@ -8,8 +8,6 @@ const bodyParser = require("body-parser");
 const moment = require("moment");
 const methodOverride = require("method-override");
 const dotenv = require("dotenv").config();
-// for parsing application/json
-// app.use(bodyParser.json());
 
 // for parsing application/xwww-
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -41,10 +39,6 @@ app.use((req, res, next) => {
   res.locals.moment = moment;
   next();
 });
-// app.use((req, res, next) => {
-//   console.table({ method: req.method, path: req.path });
-//   next();
-// });
 app.get("/", (req, res) => {
   tasks = Task.find()
     .sort({ createdAt: -1 })
@@ -105,6 +99,11 @@ app.delete("/delete", (req, res) => {
   const { _id } = req.body;
   Task.findByIdAndDelete({ _id }).then(() => {
     res.redirect("/");
+  });
+});
+app.delete("/delete/:id", (req, res) => {
+  Task.findByIdAndDelete(req.params.id).then(() => {
+    res.json({ redirect: "/" });
   });
 });
 
