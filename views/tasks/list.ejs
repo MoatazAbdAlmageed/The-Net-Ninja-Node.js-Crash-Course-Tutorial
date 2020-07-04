@@ -19,24 +19,33 @@
   </form>
 <div class="spacer"></div>
 <hr>
-<% if(tasks.length){ %> <% tasks.forEach((task) =>{ %>    
-  <div class="task" task-id="<%=task._id%>"> 
 
+
+      
+<% if(tasks.length){ %>
   
-  <p class="gray"><%= moment(task.createdAt, "YYYYMMDD").fromNow()%></p>
-
-  <div class="row"  >
-    
-  <div class="col-10">
-    
-    <form  method="POST" action="/tasks/update?_method=PUT"">
-      <div class="form-row">
-        <div class="col-md-10">
+  <table class="table">
+    <thead>
+      <td></td>
+      <td>Task</td>
+      <td>Actons</td>
+    </thead>
+    <tbody>
+        
+  <% tasks.forEach((task) =>{ %>    
+    <form  class="form-inline" method="POST" action="/tasks/update?_method=PUT"">
+      <tr class="task" task-id="<%=task._id%>">
+        <td>
+          <input type="checkbox" class="form-control-inline" name="status" <% if (task.status) {  %> checked   <% } %>  >
+        </td>
+        <td>
+          <div class="gray"><%= moment(task.createdAt, "YYYYMMDD").fromNow()%></div>
           <input
           type="hidden"
           name="_id"
           value="<%= task._id%>"
         />
+
         <input
           type="text"
           name="title"
@@ -45,25 +54,21 @@
           value="<%= task.title%>"
           placeholder="Insert task"
         />
-
         <p class="list-title-view"><%= task.title%></p>
+        </td>
+        <td>
 
-      </div>
-      <div class="col-md-1">
-        <input type="checkbox" name="status" <% if (task.status) {  %> checked   <% } %>  >
-      </div>
-      <div class="col-md-1 text-right">
-      <button type="submit" class="btn btn-sm btn-success btn-secondary">Update</button>
-    </div>
-    </div>
-    </form>
-  </div>
-<div class="col-2">
-  <button  data-id="<%= task._id%>" onclick="return confirm('Are you sure you want to delete this item?');" class="btn btn-sm btn-danger btn-secondary btn-delete">Delete</button>
-</div>
-  </div>
-  <div class="spacer sm"></div>
-</div>
-  <% } )%> <%} %>
+          <button type="submit" class="btn btn-sm btn-success btn-secondary">Update</button>
+          <button  data-id="<%= task._id%>" onclick="return confirm('Are you sure you want to delete this item?');" class="btn btn-sm btn-danger btn-secondary btn-delete">Delete</button>
+        </td>
+
+        </tr>
+
+      </form>
+
+  <% } )%>
+</tbody>
+</table>
+  <%} %>
 
 <%- include('../partials/footer.ejs') %>
