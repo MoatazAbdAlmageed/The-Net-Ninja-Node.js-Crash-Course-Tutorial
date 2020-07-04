@@ -9,13 +9,13 @@ const create = (req, res) => {
     res.redirect("/");
   });
 };
-const read = (req, res) => {
+const list = (req, res) => {
   const completed = req.url == "/completed" ? true : false;
   tasks = Task.find()
     .sort({ createdAt: -1 })
     .where({ status: completed ? true : false })
     .then((tasks) => {
-      res.render("tasks", {
+      res.render("tasks/list", {
         title: `[${tasks.length}] ${completed ? "Done" : "Todo"}`,
         tasks,
       });
@@ -35,4 +35,4 @@ const deleteItem = (req, res) => {
     res.json({ status: 200 });
   });
 };
-module.exports = { create, read, update, deleteItem };
+module.exports = { create, list, update, deleteItem };

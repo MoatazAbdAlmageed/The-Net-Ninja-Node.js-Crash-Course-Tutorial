@@ -2,12 +2,12 @@ const express = require("express");
 const router = express.Router();
 const {
   create,
-  read,
+  list,
   update,
   deleteItem,
 } = require("../controllers/taskController");
-router.get("/", read);
-router.get("/completed", read);
+router.get("/", list);
+router.get("/completed", list);
 router.post("/create", create);
 router.put("/update", update);
 router.delete("/delete/:id", deleteItem);
