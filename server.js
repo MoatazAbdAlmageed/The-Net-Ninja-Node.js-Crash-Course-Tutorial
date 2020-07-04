@@ -42,7 +42,7 @@ app.use((req, res, next) => {
 
 app.use(pagesRoutes);
 // Tasks
-app.use(taskRoutes);
+app.use("/tasks", taskRoutes);
 
 app.use((req, res) => {
   res.render("404", { title: "404" });

@@ -7,32 +7,28 @@ router.get("/", (req, res) => {
     .sort({ createdAt: -1 })
     .where({ status: 0 })
     .then((tasks) => {
-      res.render("index", { title: `TODO [${tasks.length}]`, tasks });
+      res.render("tasks", { title: `[${tasks.length}] TODO`, tasks });
     });
 });
 
-router.get("/tasks", (req, res) => {
-  res.redirect("/");
-});
-
-router.get("/tasks/completed", (req, res) => {
+router.get("/completed", (req, res) => {
   tasks = Task.find()
     .sort({ createdAt: -1 })
     .where({ status: 1 })
     .then((tasks) => {
-      res.render("completed", { title: `Done [${tasks.length}]`, tasks });
+      res.render("tasks", { title: `[${tasks.length}] Done`, tasks });
     });
 });
-router.get("/tasks/show/:id", (req, res) => {
+router.get("/show/:id", (req, res) => {
   tasks = Task.findById(`${req.params.id}`).then((task) => {
     res.render("show", { title: task.title, task });
   });
 });
 
-router.get("/tasks/create", (req, res) => {
+router.get("/create", (req, res) => {
   res.render("create", { title: "Create" });
 });
-router.post("/tasks/create", (req, res) => {
+router.post("/create", (req, res) => {
   const { title } = req.body;
   if (!title) {
     res.redirect("/");
@@ -42,7 +38,7 @@ router.post("/tasks/create", (req, res) => {
     res.redirect("/");
   });
 });
-router.put("/tasks/update", (req, res) => {
+router.put("/update", (req, res) => {
   const { _id, title, status } = req.body;
   Task.findByIdAndUpdate(
     { _id },
@@ -51,9 +47,9 @@ router.put("/tasks/update", (req, res) => {
     res.redirect("/");
   });
 });
-router.delete("/tasks/delete/:id", (req, res) => {
+router.delete("/delete/:id", (req, res) => {
   Task.findByIdAndDelete(req.params.id).then(() => {
-    res.json({ redirect: "/" });
+    res.json({ status: 200 });
   });
 });
 module.exports = router;
