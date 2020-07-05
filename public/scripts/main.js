@@ -65,7 +65,7 @@ createBtn.addEventListener("click", (e) => {
 const tasks = document.querySelectorAll(".task");
 tasks.forEach((task) => {
   const viewElement = task.querySelector(".list-title-view");
-  const editElement = task.querySelector(".list-edit-view");
+  const editElement = task.querySelector(".list-title-edit");
   task.addEventListener("dblclick", (e) => {
     editElement.classList.remove("hidden");
     editElement.focus();
@@ -101,6 +101,8 @@ deleteBtns.forEach((deleteBtn) => {
     fetch(endpoint, { method: "DELETE" })
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
+
         const row = document.querySelector(
           `[task-id='${deleteBtn.dataset.id}']`
         );

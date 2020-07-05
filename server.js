@@ -10,7 +10,7 @@ const pagesRoutes = require("./routes/pages");
 const taskRoutes = require("./routes/task");
 const { connection } = require("./db");
 // for parsing application/xwww-
-// app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 connection(() => {

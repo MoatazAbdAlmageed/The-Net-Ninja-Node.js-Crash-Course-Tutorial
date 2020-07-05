@@ -25,6 +25,10 @@ const list = (req, res) => {
 };
 const update = (req, res) => {
   const { _id, title, status } = req.body;
+  if (!title) {
+    res.redirect("/");
+  }
+
   Task.findByIdAndUpdate(
     { _id },
     { title: title.trim(), status: status == "on" ? true : false }

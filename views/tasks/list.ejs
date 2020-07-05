@@ -20,7 +20,6 @@
 
 
       
-<% if(tasks.length){ %>
   
   <table class="table" id="tasks-table">
     <thead>
@@ -31,7 +30,7 @@
     <tbody>
         
   <% tasks.forEach((task) =>{ %>    
-    <form  class="form-inline" method="POST" action="/tasks/update?_method=PUT"">
+    <form  class="form-inline" method="POST" action="/tasks/update?_method=PUT">
       <tr class="task" task-id="<%=task._id%>">
         <td>
           <input type="checkbox" class="form-control-inline" name="status" <% if (task.status) {  %> checked   <% } %>  >
@@ -67,6 +66,5 @@
   <% } )%>
 </tbody>
 </table>
-  <%} %>
 
 <%- include('../partials/footer.ejs') %>
