@@ -34,12 +34,18 @@ const update = (req, res) => {
       title: title.trim(),
       status: false,
     },
-    { new: true }
-  ).then((task) => {
-    res
-      .status(200)
-      .json({ statusCode: 200, message: "task updated!", payload: task });
-  });
+    { new: true },
+    (err, task) => {
+      console.log();
+      if (err) {
+        res.send(err);
+      } else {
+        res
+          .status(200)
+          .json({ statusCode: 200, message: "task updated!", payload: task });
+      }
+    }
+  );
 };
 const deleteItem = (req, res) => {
   Task.findByIdAndDelete(req.params.id).then(() => {
