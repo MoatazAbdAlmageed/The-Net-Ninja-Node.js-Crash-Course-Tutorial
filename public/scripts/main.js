@@ -27,7 +27,7 @@ createBtn.addEventListener("click", (e) => {
         var cell2 = row.insertCell(1);
         var cell3 = row.insertCell(2);
         cell1.innerHTML = ` <input type="checkbox" class="form-control-inline" name="status" >`;
-        cell2.innerHTML = `  <input
+        cell2.innerHTML = `  <div class="gray">a few seconds ago</div> <input
         type="hidden"
         name="_id"
         value="${payload._id}"
