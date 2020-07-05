@@ -17,8 +17,6 @@ createBtn.addEventListener("click", (e) => {
       const { statusCode, message, payload } = data;
 
       if (statusCode == 200) {
-        alert(message);
-
         var tbody = document
           .getElementById("tasks-table")
           .querySelector("tbody");
@@ -52,6 +50,8 @@ createBtn.addEventListener("click", (e) => {
          * TODO add event listner to p to show input in dbclick
          * TODO increment counter ++ like  [56] Todo
          */
+
+        alert(message);
       }
     })
     .catch((err) => {
@@ -149,12 +149,13 @@ deleteBtns.forEach((deleteBtn) => {
     fetch(endpoint, { method: "DELETE" })
       .then((res) => res.json())
       .then((data) => {
-        const { statusCode } = data;
+        const { statusCode , message } = data;
         const row = document.querySelector(
           `[data-task-id='${deleteBtn.dataset.id}']`
         );
         if (statusCode == 200) {
           row.remove();
+          alert(message);
           /**
            * * TODO decrement counter ++ like  [56] Todo
            */
