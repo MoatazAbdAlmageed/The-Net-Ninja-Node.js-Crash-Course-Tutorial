@@ -2,7 +2,6 @@ const express = require("express");
 const app = express();
 // const tasks = fs.readFileSync("./data/tasks.json", "utf8"); //todo get it from db
 const morgan = require("morgan");
-const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const moment = require("moment");
 const methodOverride = require("method-override");
@@ -11,7 +10,9 @@ const pagesRoutes = require("./routes/pages");
 const taskRoutes = require("./routes/task");
 const { connection } = require("./db");
 // for parsing application/xwww-
-app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
 connection(() => {
   app.listen(process.env.PORT);
 });

@@ -6,7 +6,9 @@ const create = (req, res) => {
   }
   const task = new Task({ title: title.trim(), status: false });
   task.save().then(() => {
-    res.redirect("/");
+    res
+      .status(200)
+      .json({ statusCode: 200, message: "task created!", payload: task });
   });
 };
 const list = (req, res) => {
@@ -32,7 +34,7 @@ const update = (req, res) => {
 };
 const deleteItem = (req, res) => {
   Task.findByIdAndDelete(req.params.id).then(() => {
-    res.json({ status: 200 });
+    res.status(200).json({ statusCode: 200, message: "task deleted!" });
   });
 };
 module.exports = { create, list, update, deleteItem };

@@ -1,6 +1,5 @@
 <%- include('../partials/header.ejs') %>
 <div class="spacer"></div>
-  <form method="POST" action="/tasks/create">
     <div class="form-row">
       <div class="col-md-10">
       <input
@@ -13,10 +12,9 @@
       />
     </div>
     <div class="col-md-2 text-center">
-    <button type="submit" class="btn btn-primary">Create</button>
+    <button type="submit" class="btn btn-primary btn-create">Create</button>
   </div>
   </div>
-  </form>
 <div class="spacer"></div>
 <hr>
 
@@ -24,7 +22,7 @@
       
 <% if(tasks.length){ %>
   
-  <table class="table">
+  <table class="table" id="tasks-table">
     <thead>
       <td></td>
       <td>Task</td>
