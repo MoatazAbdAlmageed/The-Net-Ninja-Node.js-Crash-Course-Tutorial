@@ -16,11 +16,8 @@ createBtn.addEventListener("click", (e) => {
       console.log(data);
       const { statusCode, message, payload } = data;
 
-
       if (statusCode == 200) {
-
         alert(message);
-
 
         var tbody = document
           .getElementById("tasks-table")
@@ -152,10 +149,11 @@ deleteBtns.forEach((deleteBtn) => {
     fetch(endpoint, { method: "DELETE" })
       .then((res) => res.json())
       .then((data) => {
+        const { statusCode } = data;
         const row = document.querySelector(
-          `[task-id='${deleteBtn.dataset.id}']`
+          `[data-task-id='${deleteBtn.dataset.id}']`
         );
-        if (data.statusCode == 200) {
+        if (statusCode == 200) {
           row.remove();
           /**
            * * TODO decrement counter ++ like  [56] Todo
