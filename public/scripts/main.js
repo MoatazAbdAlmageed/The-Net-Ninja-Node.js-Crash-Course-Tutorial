@@ -43,13 +43,14 @@ createBtn.addEventListener("click", (e) => {
       />
       <p class="list-title-view">${payload.title}</p>`;
         cell3.innerHTML = `<button type="submit" class="btn btn-sm btn-success btn-secondary">Update</button>
-        <button  data-id="${payload._id}" onclick="return confirm('Are you sure you want to delete this item?');" class="btn btn-sm btn-danger btn-secondary btn-delete">Delete</button>`;
+        <button  data-id="${payload._id}" class="btn btn-sm btn-danger btn-secondary btn-delete">Delete</button>`;
 
         /**
          * TODO wrap tr with form <form  class="form-inline" method="POST" action="/tasks/update?_method=PUT"">
          * TODO add attribues to tr     <tr class="task" task-id="<%=task._id%>">
          * TODO add event listner to delete btn
          * TODO add event listner to p to show input in dbclick
+         * TODO increment counter ++ like  [56] Todo
          */
       }
     })
@@ -81,21 +82,37 @@ tasks.forEach((task) => {
 });
 
 /**
+ * Update
+ */
+
+/**
  * Delete
  */
-const deleteBtn = document.querySelector("button.btn-delete");
+const deleteBtns = document.querySelectorAll("button.btn-delete");
 
-deleteBtn.addEventListener("click", (e) => {
-  const endpoint = `/tasks/delete/${deleteBtn.dataset.id}`;
-  fetch(endpoint, { method: "DELETE" })
-    .then((res) => res.json())
-    .then((data) => {
-      const row = document.querySelector(`[task-id='${deleteBtn.dataset.id}']`);
-      if (data.statusCode == 200) {
-        row.remove();
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+deleteBtns.forEach((deleteBtn) => {
+  deleteBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    const conf = confirm("Are you sure you want to delete this item?");
+    if (!conf) {
+      return;
+    }
+    const endpoint = `/tasks/delete/${deleteBtn.dataset.id}`;
+    fetch(endpoint, { method: "DELETE" })
+      .then((res) => res.json())
+      .then((data) => {
+        const row = document.querySelector(
+          `[task-id='${deleteBtn.dataset.id}']`
+        );
+        if (data.statusCode == 200) {
+          row.remove();
+          /**
+           * * TODO decrement counter ++ like  [56] Todo
+           */
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
 });
