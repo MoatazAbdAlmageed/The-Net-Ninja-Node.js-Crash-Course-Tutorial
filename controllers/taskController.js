@@ -26,14 +26,19 @@ const list = (req, res) => {
 const update = (req, res) => {
   const { _id, title, status } = req.body;
   if (!title) {
-    res.redirect("/");
+    res.status(400).json({ statusCode: 400, message: "title required!" });
   }
-
   Task.findByIdAndUpdate(
-    { _id },
-    { title: title.trim(), status: status == "on" ? true : false }
-  ).then(() => {
-    res.redirect("/");
+    _id,
+    {
+      title: title.trim(),
+      status: false,
+    },
+    { new: true }
+  ).then((task) => {
+    res
+      .status(200)
+      .json({ statusCode: 200, message: "task updated!", payload: task });
   });
 };
 const deleteItem = (req, res) => {

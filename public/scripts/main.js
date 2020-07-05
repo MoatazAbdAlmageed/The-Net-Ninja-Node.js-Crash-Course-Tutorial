@@ -14,11 +14,14 @@ createBtn.addEventListener("click", (e) => {
     .then((res) => res.json())
     .then((data) => {
       console.log(data);
-      const { statusCode, payload } = data;
+      const { statusCode, message, payload } = data;
 
-      console.log(payload);
 
       if (statusCode == 200) {
+
+        alert(message);
+
+        
         var tbody = document
           .getElementById("tasks-table")
           .querySelector("tbody");
@@ -74,17 +77,65 @@ tasks.forEach((task) => {
 
   const taskInputs = task.querySelectorAll(".list-title-edit");
   taskInputs.forEach((taskInput) => {
-    taskInput.addEventListener("blur", (e) => {
-      e.target.classList.add("hidden");
-      viewElement.classList.remove("hidden");
-    });
+    /**
+     * TODO check this behavior
+     *
+     * after uncomment those make sure update,delete action works
+     * may you need to add Esc key trigger
+     * may add (x) button to exit edit mode
+     */
+    // taskInput.addEventListener("blur", (e) => {
+    //   e.target.classList.add("hidden");
+    //   viewElement.classList.remove("hidden");
+    // });
   });
 });
 
 /**
  * Update
  */
+const updateBtns = document.querySelectorAll("button.btn-update");
+updateBtns.forEach((deleteBtn) => {
+  deleteBtn.addEventListener("click", (e) => {
+    e.preventDefault();
 
+    const taskId = e.target.parentElement.parentElement.dataset.taskId;
+    const taskStatus = e.target.parentElement.parentElement.querySelector(
+      '[name="status"]'
+    ).value;
+
+    const taskTitle = e.target.parentElement.parentElement.querySelector(
+      ".list-title-edit"
+    ).value;
+
+    const endpoint = `/tasks/update`;
+    fetch(endpoint, {
+      method: "PUT",
+      body: JSON.stringify({
+        _id: taskId,
+        title: taskTitle,
+        status: taskStatus,
+      }),
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        const { statusCode, message, payload } = data;
+        if (statusCode == 200) {
+          alert(message);
+          /**
+           * todo update tow data
+           */
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
+});
 /**
  * Delete
  */
@@ -101,8 +152,6 @@ deleteBtns.forEach((deleteBtn) => {
     fetch(endpoint, { method: "DELETE" })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-
         const row = document.querySelector(
           `[task-id='${deleteBtn.dataset.id}']`
         );
@@ -114,7 +163,7 @@ deleteBtns.forEach((deleteBtn) => {
         }
       })
       .catch((err) => {
-        console.log(err);
+        throw err;
       });
   });
 });

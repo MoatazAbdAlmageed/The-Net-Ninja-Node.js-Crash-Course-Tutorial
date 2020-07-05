@@ -30,8 +30,7 @@
     <tbody>
         
   <% tasks.forEach((task) =>{ %>    
-    <form  class="form-inline" method="POST" action="/tasks/update?_method=PUT">
-      <tr class="task" task-id="<%=task._id%>">
+      <tr class="task" data-task-id="<%=task._id%>">
         <td>
           <input type="checkbox" class="form-control-inline" name="status" <% if (task.status) {  %> checked   <% } %>  >
         </td>
@@ -55,13 +54,12 @@
         </td>
         <td>
 
-          <button type="submit" class="btn btn-sm btn-success btn-secondary">Update</button>
+          <button type="submit" class="btn btn-sm btn-update btn-success btn-secondary">Update</button>
           <button  data-id="<%= task._id%>" class="btn btn-sm btn-danger btn-secondary btn-delete">Delete</button>
         </td>
 
         </tr>
 
-      </form>
 
   <% } )%>
 </tbody>
