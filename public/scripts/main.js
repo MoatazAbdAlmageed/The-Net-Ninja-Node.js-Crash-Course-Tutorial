@@ -21,7 +21,7 @@ createBtn.addEventListener("click", (e) => {
 
         alert(message);
 
-        
+
         var tbody = document
           .getElementById("tasks-table")
           .querySelector("tbody");
@@ -50,7 +50,7 @@ createBtn.addEventListener("click", (e) => {
 
         /**
          * TODO wrap tr with form <form  class="form-inline" method="POST" action="/tasks/update?_method=PUT"">
-         * TODO add attribues to tr     <tr class="task" task-id="<%=task._id%>">
+         * TODO add attributes to tr     <tr class="task" task-id="<%=task._id%>">
          * TODO add event listner to delete btn
          * TODO add event listner to p to show input in dbclick
          * TODO increment counter ++ like  [56] Todo

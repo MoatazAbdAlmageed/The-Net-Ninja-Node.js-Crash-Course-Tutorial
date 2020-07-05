@@ -29,7 +29,7 @@ const update = (req, res) => {
     res.status(400).json({ statusCode: 400, message: "title required!" });
   }
   Task.findByIdAndUpdate(
-    _id,
+    { _id },
     {
       title: title.trim(),
       status: false,
